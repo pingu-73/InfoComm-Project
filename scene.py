@@ -1,4 +1,4 @@
-from manim import *
+# %%manim -qm Intro
 
 # Opening Playcard Type-1
 from manim import *
@@ -22,11 +22,7 @@ class Intro(Scene):
         self.play(FadeOut(byok), FadeOut(title))
         self.wait(3)
 
-
-
-# square and groups
-class Slide2(Scene):
-    def construct(self):
+    # def construct(self):
         big_square = Square(side_length=3, color=BLUE)
 #         self.play(Create(big_square))
 #         self.wait()
@@ -40,7 +36,7 @@ class Slide2(Scene):
         ])
 
 #         self.play(Create(grid_lines))
-        self.wait()
+#         self.wait()
 
         labels = VGroup()
         for j in range(1, 4):
@@ -52,20 +48,38 @@ class Slide2(Scene):
                 label.move_to(big_square.get_corner(UL) + DOWN * (i - 0.5) + RIGHT * (j - 0.5))
                 labels.add(label)
 
-#         self.play(Create(labels))
-#         self.wait(2)
-        
+
         scene_group = VGroup(big_square, grid_lines, labels)
         self.play(Create(scene_group))
-        self.wait(2)
-
+        self.wait()
+        
+        small_squares = VGroup()
+        for j in range(1, 4):
+            for i in range(1, 4):
+                small_square = Square(side_length=0.8, color=YELLOW)
+                small_square.move_to(labels[(j-1)*3 + (i-1)].get_center())
+                small_squares.add(small_square)
+                
+        self.play(Create(small_squares))
+        
+        
+        sample_space = Tex(r"12", font_size=48, color=YELLOW)
+        sample_space.next_to(scene_group, DOWN, buff=0.5)
+        self.play(Write(sample_space))
+        self.play(FadeOut(small_squares))
+        self.wait()
+        
+        
+        scene_group = VGroup(big_square, grid_lines, labels, sample_space)
+        
         scene_group.generate_target()
         scene_group.target.shift(5 * LEFT+ 1.5 * UP)
         self.play(MoveToTarget(scene_group))
         self.wait()
+        
 # --------------------------------------------------------------------------------------------
 
-        oval_1 = Ellipse(height=2, width=3.5, color=YELLOW)
+        oval_1 = Ellipse(height=2, width=3.5, color=PINK)
         oval_1.next_to(big_square, RIGHT, buff=1)
 
         group_label_1 = MathTex("Group 1")
@@ -90,7 +104,7 @@ class Slide2(Scene):
         
 #         --------------------------------------------------------------
 
-        oval_2 = Ellipse(height=2, width=3.5, color=RED)
+        oval_2 = Ellipse(height=2, width=3.5, color=ORANGE)
         oval_2.next_to(oval_1, DOWN, buff=1)
 
         group_label_2 = MathTex("Group 2")
@@ -136,6 +150,42 @@ class Slide2(Scene):
         self.wait(2)
 #        --------------------------------------------------------------------------------------
         
+    
+        highlight_oval1 = Ellipse(height=2, width=3.5, color=YELLOW)
+        highlight_oval1.move_to((oval_1.get_center()))
+        self.play(Create(highlight_oval1))
+#         self.wait(1)
+        t = Tex(r"1", font_size=48, color=YELLOW)
+        t.next_to(scene_group, DOWN, buff=1)
+        self.play(Write(t))
+        self.play(FadeOut(highlight_oval1))
+        self.wait(1)
+        
+        
+        highlight_oval2 = Ellipse(height=2, width=3.5, color=YELLOW)
+        highlight_oval2.move_to((oval_2.get_center()))
+        self.play(Create(highlight_oval2))
+#         self.wait(1)
+        t1 = Tex(r"+1", font_size=48, color=YELLOW)
+#         t1.next_to(scene_group, DOWN, buff=1)
+        t1.next_to(t, RIGHT, buff=0.1)
+        self.play(Write(t1))
+        self.play(FadeOut(highlight_oval2))
+        self.wait(1)
+        
+        
+        highlight_oval3 = Ellipse(height=2, width=3.5, color=YELLOW)
+        highlight_oval3.move_to((oval_3.get_center()))
+        self.play(Create(highlight_oval3))
+        t2 = Tex(r"+1", font_size=48, color=YELLOW)
+#         t.next_to(scene_group, DOWN, buff=1)
+        t2.next_to(t1, RIGHT, buff=0.1)
+#         self.play(FadeOut(t))
+        self.play(Write(t2))
+        self.play(FadeOut(highlight_oval3))
+        self.wait(1)
+        
+#        --------------------------------------------------------------------------------------
         self.play(FadeOut(scene_group1), FadeOut(scene_group3))
         self.wait()
         
@@ -145,17 +195,49 @@ class Slide2(Scene):
         scene_group2.target.shift(1.9 * UP+0.5* RIGHT)
         self.play(MoveToTarget(scene_group2))
         self.wait()
-
-
-
-class MainScene(Scene):
-    def constructor(self):
-        intro_scene = Intro()
-        slide2_scene = Slide2()
-
-        self.play(AnimationGroup(intro_scene, slide2_scene))
-
-# Run the Manim script
-if __name__ == "__main__":
-    scene = MainScene()
-    scene.render()
+        
+#     -----------------------------------------------------------------------------------------
+        
+        highlight_circle = Circle(radius=0.5, color=YELLOW, fill_opacity=0)
+        highlight_circle.move_to(p21.get_center())
+        self.play(Create(highlight_circle))
+        self.wait()
+        t3 = Tex(r"+1", font_size=48, color=YELLOW)
+        t3.next_to(t2, RIGHT, buff=0.1)
+        self.play(Write(t3))
+        self.play(FadeOut(highlight_circle))
+        
+        highlight_circle2 = Circle(radius=0.5, color=YELLOW, fill_opacity=0)
+        highlight_circle2.move_to(p22.get_center())
+        self.play(Create(highlight_circle2))
+        self.wait()
+        t4 = Tex(r"+1", font_size=48, color=YELLOW)
+        t4.next_to(t3, RIGHT, buff=0.1)
+        self.play(Write(t4))
+        self.play(FadeOut(highlight_circle2))
+        
+        
+        highlight_circle3 = Circle(radius=0.5, color=YELLOW, fill_opacity=0)
+        highlight_circle3.move_to(p23.get_center())
+        self.play(Create(highlight_circle3))
+        self.wait()
+        t5 = Tex(r"+1", font_size=48, color=YELLOW)
+        t5.next_to(t4, RIGHT, buff=0.1)
+        self.play(Write(t5))
+        self.play(FadeOut(highlight_circle3))
+        
+        t6 = Tex(r"=6", font_size=48, color=YELLOW)
+        t6.next_to(t5, RIGHT, buff=0.1)
+        self.play(Write(t6))
+        
+        
+        self.play(FadeOut(t), FadeOut(t1), FadeOut(t2), FadeOut(t3), FadeOut(t4), FadeOut(t5), FadeOut(t6))
+        t7 = Tex(r"6", font_size=48, color=YELLOW)
+        t7.next_to(scene_group, DOWN, buff=1)
+        self.play(Write(t7))
+        self.wait(2)
+        
+#       ---------------------------------------------------------------------------------------
+        
+        self.play(FadeOut(scene_group), FadeOut(t7))
+        self.wait(1)
