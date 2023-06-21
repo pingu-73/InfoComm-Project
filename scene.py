@@ -284,8 +284,6 @@ class SquareGrid(Scene):
 
 
 
-# from manim import *
-
 class Huffmn(Scene):
     def construct(self):
         self.wait(1)
