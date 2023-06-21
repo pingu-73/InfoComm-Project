@@ -5,24 +5,47 @@ from manim import *
 
 class Intro(Scene):
     def construct(self):
-        title = Tex(r"Group Theory with Prior Statistics", font_size=48)
+        title = Tex(r"Group Theory with Prior Statistics", font_size=48, color = RED)
         self.play(Write(title))
         self.wait()
+        rect = Rectangle(width=title.width + 0.5, height=1.0, stroke_color=RED, fill_opacity=0)
+#         rect.next_to(title, DOWN, buff=0.5)
+        self.play(Create(rect))
 
         ResPapby = Tex(r"Research Paper by: Tongxin Li, Chun Lam, Wenhao Huang, Tarik Kaced and Sidharth Jaggi", font_size=30)
         ResPapby.next_to(title, DOWN, buff=0.5)
         self.play(Write(ResPapby))
-        self.wait(2)
+        self.wait()
         self.play(FadeOut(ResPapby))
                   
         byok = Tex(r"Explained by: Dikshant(2022102038) \& Akshat Tiwari(2022102043)", font_size=38)
         byok.next_to(title, DOWN, buff=0.5)
         self.play(Write(byok))
         self.wait()
-        self.play(FadeOut(byok), FadeOut(title))
-        self.wait(3)
+        self.play(FadeOut(byok),FadeOut(rect) ,FadeOut(title))
+        self.wait(2)
 
-    # def construct(self):
+
+# from manim import *
+
+class SquareGrid(Scene):
+    
+    def construct(self):
+        
+        sect = Tex(r"Section-1", font_size=48, color = BLUE)
+        self.play(Write(sect))
+        self.play(FadeOut(sect))
+
+            
+        title2 = Tex(r"Introduction", font_size=30)
+        title2.to_edge(UP)
+        underline = Line(title2.get_left(), title2.get_right())
+        underline.next_to(title2, DOWN, buff=0.1)
+        self.play(Write(title2), Create(underline))
+        self.wait()
+        
+        
+        
         big_square = Square(side_length=3, color=BLUE)
 #         self.play(Create(big_square))
 #         self.wait()
@@ -52,7 +75,14 @@ class Intro(Scene):
         scene_group = VGroup(big_square, grid_lines, labels)
         self.play(Create(scene_group))
         self.wait()
-        
+#         ------------------------------------------------------------------------
+
+#     n=Tex(r"N=",font_size=48 ,Colour = RED)    
+        k = Tex(r"K=1",font_size=48 ,color = BLUE)
+        k.move_to( UP * 2 + RIGHT * 5)
+        self.play(Write(k))
+
+# -----------------------------------------------------------------------------
         small_squares = VGroup()
         for j in range(1, 4):
             for i in range(1, 4):
@@ -63,7 +93,7 @@ class Intro(Scene):
         self.play(Create(small_squares))
         
         
-        sample_space = Tex(r"12", font_size=48, color=YELLOW)
+        sample_space = Tex(r"N=9", font_size=48, color=YELLOW)
         sample_space.next_to(scene_group, DOWN, buff=0.5)
         self.play(Write(sample_space))
         self.play(FadeOut(small_squares))
@@ -77,7 +107,7 @@ class Intro(Scene):
         self.play(MoveToTarget(scene_group))
         self.wait()
         
-# --------------------------------------------------------------------------------------------
+# --------------------------------------------------------------
 
         oval_1 = Ellipse(height=2, width=3.5, color=PINK)
         oval_1.next_to(big_square, RIGHT, buff=1)
@@ -125,7 +155,7 @@ class Intro(Scene):
         scene_group2 = VGroup(oval_2, group_label_2, p21, p22, p23)
         self.play(Create(scene_group2))
         self.wait()
-#         --------------------------------------------------------------------------------------
+#         --------------------------------------------------------------------
         
         oval_3 = Ellipse(height=2, width=3.5, color=GREEN)
         oval_3.next_to(oval_2, RIGHT, buff=1)
@@ -148,7 +178,7 @@ class Intro(Scene):
         scene_group3 = VGroup(oval_3, group_label_3, p31, p32, p33)
         self.play(Create(scene_group3))
         self.wait(2)
-#        --------------------------------------------------------------------------------------
+#        -----------------------------------------------------------------------
         
     
         highlight_oval1 = Ellipse(height=2, width=3.5, color=YELLOW)
@@ -185,18 +215,18 @@ class Intro(Scene):
         self.play(FadeOut(highlight_oval3))
         self.wait(1)
         
-#        --------------------------------------------------------------------------------------
+#        ---------------------------------------------------------
         self.play(FadeOut(scene_group1), FadeOut(scene_group3))
         self.wait()
         
         
-#         ------------------------------------------------------------------------------------
+#         ---------------------------------------------
         scene_group2.generate_target()
         scene_group2.target.shift(1.9 * UP+0.5* RIGHT)
         self.play(MoveToTarget(scene_group2))
         self.wait()
         
-#     -----------------------------------------------------------------------------------------
+#     ---------------------------------------------
         
         highlight_circle = Circle(radius=0.5, color=YELLOW, fill_opacity=0)
         highlight_circle.move_to(p21.get_center())
@@ -232,12 +262,22 @@ class Intro(Scene):
         
         
         self.play(FadeOut(t), FadeOut(t1), FadeOut(t2), FadeOut(t3), FadeOut(t4), FadeOut(t5), FadeOut(t6))
-        t7 = Tex(r"6", font_size=48, color=YELLOW)
+        t7 = Tex(r"D=6", font_size=48, color=YELLOW)
         t7.next_to(scene_group, DOWN, buff=1)
         self.play(Write(t7))
         self.wait(2)
         
-#       ---------------------------------------------------------------------------------------
-        
-        self.play(FadeOut(scene_group), FadeOut(t7))
+        t8 = Tex(r"D \textless N", font_size=48, color=BLUE)
+        t8.next_to(k, DOWN, buff=1)
+        rt = Rectangle(width=t8.width + 0.5, height=t8.height + 0.5, stroke_color=WHITE, fill_opacity=0)
+        rt.move_to(t8)
+        self.play(Write(t8))
+        self.play(Create(rt))
+        self.wait(2)
+    
+#      ----------------------------------------------------------------------
+         
+        self.play(FadeOut(scene_group), FadeOut(t7), FadeOut(scene_group2), FadeOut(title2), FadeOut(underline),FadeOut(k)
+                 ,FadeOut(t8),FadeOut(rt)
+                 )
         self.wait(1)
